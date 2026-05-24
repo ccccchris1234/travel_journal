@@ -14,10 +14,10 @@ export const places = [
     lng: -3.188,
     photo: "",
     note: "Castle stone, narrow closes, and northern weather.",
-    noteZh: "城堡石墙、旧巷与北方天气。"
+    noteZh: "北境之地的城堡、石墙、旧巷。"
   },
    {
-    id: 6,
+    id: 2,
     name: "Toronto",
     zh: "多伦多",
     country: "Canada",
@@ -34,7 +34,7 @@ export const places = [
     noteZh: "湖岸天际线、电车与多元城市肌理。"
   },
   {
-    id: 8,
+    id: 3,
     name: "Banff",
     zh: "班夫",
     country: "Canada",
@@ -50,9 +50,8 @@ export const places = [
     note: "Blue lakes, cold peaks, and mountain silence.",
     noteZh: "蓝湖、雪山与山谷静默。"
   },
-
   {
-    id: 9,
+    id: 4,
     name: "London",
     zh: "伦敦",
     country: "United Kingdom",
@@ -68,9 +67,8 @@ export const places = [
     note: "Rain-polished streets, museums, and a river of stories.",
     noteZh: "雨后的街道、博物馆与泰晤士河。"
   },
-
   {
-    id: 7,
+    id: 5,
     name: "Montreal",
     zh: "蒙特利尔",
     country: "Canada",
@@ -87,7 +85,7 @@ export const places = [
     noteZh: "石板街、法语招牌与夜晚烟火气。"
   },
    {
-    id: 11,
+    id: 6,
     name: "White Cliffs of Dover",
     zh: "多佛白崖",
     country: "United Kingdom",
@@ -104,7 +102,7 @@ export const places = [
     noteZh: "白色悬崖、海风与英吉利海峡。"
   },
   {
-    id: 1,
+    id: 7,
     name: "Chongqing",
     zh: "重庆",
     country: "China",
@@ -121,7 +119,7 @@ export const places = [
     noteZh: "山城、夜景与两江交汇。"
   },
   {
-    id: 2,
+    id: 8,
     name: "Beijing",
     zh: "北京",
     country: "China",
@@ -138,7 +136,7 @@ export const places = [
     noteZh: "宫墙、胡同与历史长街。"
   },
   {
-    id: 3,
+    id: 9,
     name: "Shanghai",
     zh: "上海",
     country: "China",
@@ -155,7 +153,7 @@ export const places = [
     noteZh: "高楼、弄堂与夜色中的外滩。"
   },
   {
-    id: 4,
+    id: 10,
     name: "Nanjing",
     zh: "南京",
     country: "China",
@@ -172,7 +170,7 @@ export const places = [
     noteZh: "古都、梧桐与城墙。"
   },
   {
-    id: 5,
+    id: 11,
     name: "Xiamen",
     zh: "厦门",
     country: "China",
@@ -203,7 +201,7 @@ export const places = [
     lng: -19.021,
     photo: "",
     note: "A future chapter of black beaches, glaciers, and northern light.",
-    noteZh: "未来章节：黑沙滩、冰川与极光。"
+    noteZh: "未来章节：黑沙滩、冰川、极光与无人的街道。"
   },
   {
     id: 13,
@@ -220,6 +218,6 @@ export const places = [
     lng: 138.253,
     photo: "",
     note: "A planned page for cities, trains, food, and quiet temples.",
-    noteZh: "未来想记录城市、列车、美食与寺院。"
+    noteZh: "未来章节：二次元胜地，电车，神社和雨后的城市街道。"
   }
 ];
