@@ -14,7 +14,7 @@ export const places = [
     lng: 106.551,
     photo: "",
     note: "Mountain city, neon nights, rivers folding through the skyline.",
-    noteZh: "山城、夜景与两江"
+    noteZh: "山城、夜景与两江交汇。"
   },
   {
     id: 2,
@@ -156,7 +156,7 @@ export const places = [
     id: 10,
     name: "Edinburgh",
     zh: "爱丁堡",
-    country: "United Kingdom",
+    country: "United Kingdom-Scotland",
     countryZh: "英国",
     type: "City",
     typeZh: "城市",
