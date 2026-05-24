@@ -14,7 +14,7 @@ export const places = [
     lng: 106.551,
     photo: "",
     note: "Mountain city, neon nights, rivers folding through the skyline.",
-    noteZh: "山城、夜景与两江交汇"
+    noteZh: "山城、夜景与两江"
   },
   {
     id: 2,
