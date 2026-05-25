@@ -79,7 +79,6 @@ export default function App() {
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-slate-400">World Travel Journal</p>
-              <p className="text-xs text-slate-500">世界旅行日志</p>
             </div>
           </div>
 
@@ -99,7 +98,6 @@ export default function App() {
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
               A cinematic travel journal for visited cities, future routes, and small memories pinned across the world.
-              <span className="block text-slate-500">记录已经抵达的地方，也收藏未来想去的远方。</span>
             </p>
           </motion.div>
 
@@ -107,19 +105,16 @@ export default function App() {
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{visitedCount}</p>
-                <p className="mt-1 text-sm text-slate-400">Visited 已去过</p>
               </div>
             </Card>
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{wishlistCount}</p>
-                <p className="mt-1 text-sm text-slate-400">Wishlist 想去</p>
               </div>
             </Card>
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{countryCount}</p>
-                <p className="mt-1 text-sm text-slate-400">Countries 国家</p>
               </div>
             </Card>
           </div>
@@ -131,7 +126,6 @@ export default function App() {
           <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-2xl font-semibold">World Map</h2>
-              <p className="text-sm text-slate-500">世界地图标记</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {["All", "Visited", "Wishlist", "Planned"].map((item) => (
@@ -231,7 +225,7 @@ export default function App() {
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search places / 搜索地点"
+                  placeholder="Search places"
                   className="w-full bg-transparent text-sm outline-none placeholder:text-slate-600"
                 />
               </div>
