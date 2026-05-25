@@ -31,12 +31,40 @@ function project(lat, lng) {
 }
 
 function PhotoPanel({ place }) {
-  if (place.photo) {
-    return <img src={place.photo} alt={place.name} className="h-full w-full object-cover" />;
+  const photoList =
+    place.photos && place.photos.length > 0
+      ? place.photos
+      : place.photo
+      ? [place.photo]
+      : [];
+
+  if (photoList.length === 1) {
+    return (
+      <img
+        src={photoList[0]}
+        alt={place.name}
+        className="h-full w-full object-cover"
+      />
+    );
+  }
+
+  if (photoList.length > 1) {
+    return (
+      <div className="grid h-full w-full grid-cols-2 gap-1">
+        {photoList.map((photo, index) => (
+          <img
+            key={photo}
+            src={photo}
+            alt={`${place.name} ${index + 1}`}
+            className="h-full w-full object-cover"
+          />
+        ))}
+      </div>
+    );
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.32),transparent_22%),linear-gradient(135deg,rgba(15,23,42,1),rgba(30,64,175,0.55),rgba(2,6,23,1))]">
+    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.32),transparent_32%),linear-gradient(135deg,#0f172a,#1e3a8a,#0f766e)]">
       <Camera className="h-10 w-10 text-white/60" />
     </div>
   );
