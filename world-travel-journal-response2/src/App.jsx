@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Camera, CalendarDays, Plane, Search, Globe2 } from "lucide-react";
 import { places } from "./data/places";
+import { Camera } from "lucide-react";
 
 const statusStyles = {
   Visited: "bg-emerald-400/15 text-emerald-200 border-emerald-300/25",
