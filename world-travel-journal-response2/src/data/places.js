@@ -15,8 +15,7 @@ export const places = [
     photo: "/edinburgh_1.jpeg",
     photos: [
       "/edinburgh_1.jpeg",
-             "/edinburgh_2.jpeg",
-      
+      "/edinburgh_2.jpeg",
     ],
     note: "Castle stone, narrow closes, and northern weather.",
     noteZh: "北境之地的城堡、石墙、旧巷。"
