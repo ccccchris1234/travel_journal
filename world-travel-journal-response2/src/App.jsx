@@ -224,6 +224,9 @@ export default function App() {
   <p className="text-white">
     Current place: {selected.name} | Current photo: {selected.photo}
   </p>
+              <div className="mb-2 rounded-lg bg-red-500 p-2 text-xs text-white">
+  DEBUG: {selected.name} | photo: {selected.photo} | photos: {JSON.stringify(selected.photos)}
+</div>
   <PhotoPanel place={selected} />
 </div>
             <div className="p-6">
