@@ -221,8 +221,11 @@ export default function App() {
         <aside className="space-y-6">
           <Card className="overflow-hidden rounded-[2rem] border-white/10 bg-white/[0.06] text-white backdrop-blur">
             <div className="h-56">
-              <PhotoPanel place={selected} />
-            </div>
+  <p className="text-white">
+    Current place: {selected.name} | Current photo: {selected.photo}
+  </p>
+  <PhotoPanel place={selected} />
+</div>
             <div className="p-6">
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div>
