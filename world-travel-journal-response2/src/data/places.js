@@ -12,7 +12,7 @@ export const places = [
     date: "Past trip",
     lat: 55.953,
     lng: -3.188,
-    photo: "",
+    photo: "/edinburgh1.jpg",
     note: "Castle stone, narrow closes, and northern weather.",
     noteZh: "北境之地的城堡、石墙、旧巷。"
   },
