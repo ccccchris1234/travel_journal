@@ -31,40 +31,12 @@ function project(lat, lng) {
 }
 
 function PhotoPanel({ place }) {
-  const photoList =
-    place.photos && place.photos.length > 0
-      ? place.photos
-      : place.photo
-      ? [place.photo]
-      : [];
-
-  if (photoList.length === 1) {
-    return (
-      <img
-        src={photoList[0]}
-        alt={place.name}
-        className="h-full w-full object-cover"
-      />
-    );
-  }
-
-  if (photoList.length > 1) {
-    return (
-      <div className="grid h-full w-full grid-cols-2 gap-1">
-        {photoList.map((photo, index) => (
-          <img
-            key={photo}
-            src={photo}
-            alt={`${place.name} ${index + 1}`}
-            className="h-full w-full object-cover"
-          />
-        ))}
-      </div>
-    );
+  if (place.photo) {
+    return <img src={place.photo} alt={place.name} className="h-full w-full object-cover" />;
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.32),transparent_32%),linear-gradient(135deg,#0f172a,#1e3a8a,#0f766e)]">
+    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.32),transparent_22%),linear-gradient(135deg,rgba(15,23,42,1),rgba(30,64,175,0.55),rgba(2,6,23,1))]">
       <Camera className="h-10 w-10 text-white/60" />
     </div>
   );
@@ -81,7 +53,8 @@ export default function App() {
       const q = query.trim().toLowerCase();
       const matchesQuery =
         !q ||
-        [place.name, place.zh, place.country, place.countryZh, place.type, place.typeZh]
+        [place.name, place.zh, place.country, place.type]
+          .filter(Boolean)
           .join(" ")
           .toLowerCase()
           .includes(q);
@@ -133,16 +106,19 @@ export default function App() {
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{visitedCount}</p>
+                <p className="mt-1 text-sm text-slate-400">Visited</p>
               </div>
             </Card>
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{wishlistCount}</p>
+                <p className="mt-1 text-sm text-slate-400">Wishlist</p>
               </div>
             </Card>
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{countryCount}</p>
+                <p className="mt-1 text-sm text-slate-400">Countries</p>
               </div>
             </Card>
           </div>
@@ -221,34 +197,27 @@ export default function App() {
         <aside className="space-y-6">
           <Card className="overflow-hidden rounded-[2rem] border-white/10 bg-white/[0.06] text-white backdrop-blur">
             <div className="h-56">
-  <p className="text-white">
-    Current place: {selected.name} | Current photo: {selected.photo}
-  </p>
-              <div className="mb-2 rounded-lg bg-red-500 p-2 text-xs text-white">
-  DEBUG: {selected.name} | photo: {selected.photo} | photos: {JSON.stringify(selected.photos)}
-</div>
-  <PhotoPanel place={selected} />
-</div>
+              <PhotoPanel place={selected} />
+            </div>
             <div className="p-6">
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div>
                   <h2 className="text-3xl font-semibold">{selected.name}</h2>
-                  <p className="text-slate-400">{selected.zh} · {selected.countryZh}</p>
+                  <p className="text-slate-400">{selected.zh}</p>
                 </div>
                 <span className={`rounded-full border px-3 py-1 text-xs ${statusStyles[selected.status]}`}>
-                  {selected.status} · {selected.statusZh}
+                  {selected.status}
                 </span>
               </div>
               <div className="mb-5 grid gap-3 text-sm text-slate-300">
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-slate-500" /> {selected.country} · {selected.type} / {selected.typeZh}
+                  <MapPin className="h-4 w-4 text-slate-500" /> {selected.country} · {selected.type}
                 </div>
                 <div className="flex items-center gap-2">
                   <CalendarDays className="h-4 w-4 text-slate-500" /> {selected.date}
                 </div>
               </div>
               <p className="leading-7 text-slate-300">{selected.note}</p>
-              <p className="mt-2 text-sm leading-6 text-slate-500">{selected.noteZh}</p>
             </div>
           </Card>
 
