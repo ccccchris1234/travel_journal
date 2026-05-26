@@ -63,7 +63,7 @@ export const places = [
     date: "Past trip",
     lat: 51.507,
     lng: -0.128,
-    photo: "",
+    photo: "/london_1.jpeg",
     note: "Rain-polished streets, museums, and a river of stories.",
     noteZh: "雨后的街道、博物馆与泰晤士河。"
   },
