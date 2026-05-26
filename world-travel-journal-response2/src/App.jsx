@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Camera, CalendarDays, Plane, Search, Globe2 } from "lucide-react";
 import { places } from "./data/places";
@@ -32,6 +32,10 @@ function project(lat, lng) {
 
 function PhotoPanel({ place }) {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [place.id]);
 
   const images =
     place.photos && place.photos.length > 0
@@ -80,10 +84,87 @@ function PhotoPanel({ place }) {
     </div>
   );
 }
+
+function PlaceDetail({ place, onBack }) {
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${place.lng - 0.08}%2C${place.lat - 0.05}%2C${place.lng + 0.08}%2C${place.lat + 0.05}&layer=mapnik&marker=${place.lat}%2C${place.lng}`;
+
+  return (
+    <div className="min-h-screen bg-slate-950 px-5 py-8 text-slate-100 md:px-8">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.14),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.1),transparent_25%)]" />
+
+      <div className="mx-auto max-w-6xl">
+        <button
+          onClick={onBack}
+          className="mb-6 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-white/10 hover:text-white"
+        >
+          ← Back to journal
+        </button>
+
+        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] shadow-2xl backdrop-blur">
+          <div className="h-[520px]">
+            <PhotoPanel place={place} />
+          </div>
+
+          <div className="grid gap-8 p-6 md:grid-cols-[1fr_0.9fr] md:p-8">
+            <div>
+              <p className="mb-3 text-sm uppercase tracking-[0.35em] text-sky-200/70">
+                Travel Memory
+              </p>
+
+              <h1 className="text-5xl font-semibold tracking-tight">
+                {place.name}
+              </h1>
+
+              <p className="mt-2 text-xl text-slate-400">{place.zh}</p>
+
+              <div className="mt-6 grid gap-3 text-sm text-slate-300">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-slate-500" />
+                  {place.country} · {place.type}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <CalendarDays className="h-4 w-4 text-slate-500" />
+                  {place.date}
+                </div>
+              </div>
+
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+                {place.note}
+              </p>
+
+              {place.noteZh && (
+                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-500">
+                  {place.noteZh}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <h2 className="mb-3 text-xl font-semibold">Location</h2>
+
+              <iframe
+                title={`${place.name} map`}
+                src={mapUrl}
+                className="h-80 w-full rounded-3xl border border-white/10"
+              />
+
+              <p className="mt-3 text-sm text-slate-500">
+                Latitude: {place.lat} · Longitude: {place.lng}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [selectedId, setSelectedId] = useState(1);
   const [status, setStatus] = useState("All");
   const [query, setQuery] = useState("");
+  const [detailPlaceId, setDetailPlaceId] = useState(null);
 
   const filteredPlaces = useMemo(() => {
     return places.filter((place) => {
@@ -102,9 +183,19 @@ export default function App() {
   }, [status, query]);
 
   const selected = places.find((place) => place.id === selectedId) || places[0];
+  const detailPlace = places.find((place) => place.id === detailPlaceId);
   const visitedCount = places.filter((place) => place.status === "Visited").length;
   const wishlistCount = places.filter((place) => place.status === "Wishlist").length;
   const countryCount = new Set(places.map((place) => place.country)).size;
+
+  if (detailPlace) {
+    return (
+      <PlaceDetail
+        place={detailPlace}
+        onBack={() => setDetailPlaceId(null)}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
@@ -240,7 +331,12 @@ export default function App() {
             <div className="p-6">
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-3xl font-semibold">{selected.name}</h2>
+                  <button
+                    onClick={() => setDetailPlaceId(selected.id)}
+                    className="text-left text-3xl font-semibold transition hover:text-sky-200"
+                  >
+                    {selected.name}
+                  </button>
                   <p className="text-slate-400">{selected.zh}</p>
                 </div>
                 <span className={`rounded-full border px-3 py-1 text-xs ${statusStyles[selected.status]}`}>
