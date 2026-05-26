@@ -104,7 +104,7 @@ export const places = [
     date: "Past trip",
     lat: 51.127,
     lng: 1.314,
-    photo: "white_cliff_1.jpeg",
+    photo: "/white_cliff_1.jpeg",
     note: "White cliffs, wind, and the English Channel below.",
     noteZh: "白色悬崖、海风与英吉利海峡。"
   },
