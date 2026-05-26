@@ -420,10 +420,7 @@ export default function App() {
                   <button
                     key={place.id}
                     type="button"
-                    onClick={() => {
-                      setSelectedId(place.id);
-                      setDetailPlaceId(place.id);
-                    }}
+                    onClick={() => setSelectedId(place.id)}
                     className={`w-full rounded-2xl border p-3 text-left transition ${
                       selectedId === place.id ? "border-white/30 bg-white/15" : "border-white/10 bg-white/[0.03] hover:bg-white/[0.08]"
                     }`}
