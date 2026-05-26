@@ -31,8 +31,47 @@ function project(lat, lng) {
 }
 
 function PhotoPanel({ place }) {
-  if (place.photo) {
-    return <img src={place.photo} alt={place.name} className="h-full w-full object-cover" />;
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const images =
+    place.photos && place.photos.length > 0
+      ? place.photos
+      : place.photo
+        ? [place.photo]
+        : [];
+
+  if (images.length > 0) {
+    return (
+      <div className="relative h-full w-full">
+        <img
+          src={images[activeIndex]}
+          alt={place.name}
+          className="h-full w-full object-cover"
+        />
+
+        {images.length > 1 && (
+          <div className="absolute bottom-3 left-3 right-3 flex gap-2 overflow-x-auto">
+            {images.map((image, index) => (
+              <button
+                key={image}
+                onClick={() => setActiveIndex(index)}
+                className={`h-14 w-20 flex-shrink-0 overflow-hidden rounded-xl border ${
+                  activeIndex === index
+                    ? "border-white"
+                    : "border-white/30 opacity-70"
+                }`}
+              >
+                <img
+                  src={image}
+                  alt={`${place.name} ${index + 1}`}
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -41,7 +80,6 @@ function PhotoPanel({ place }) {
     </div>
   );
 }
-
 export default function App() {
   const [selectedId, setSelectedId] = useState(1);
   const [status, setStatus] = useState("All");
