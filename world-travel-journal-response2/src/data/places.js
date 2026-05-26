@@ -80,7 +80,7 @@ export const places = [
     date: "Past trip",
     lat: 45.501,
     lng: -73.567,
-    photo: "",
+    photo: "/montreal_1.jpeg",
     note: "Stone streets, French signs, and late-night warmth.",
     noteZh: "石板街、法语招牌与夜晚烟火气。"
   },
