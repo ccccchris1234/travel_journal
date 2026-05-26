@@ -109,7 +109,7 @@ export const places = [
     lat: 45.501,
     lng: -73.567,
     photo: "/montreal_1.JPG",
-    photo:[
+    photos:[
       "/montreal_1.JPG",
       "/montreal_2.JPG",
       "/montreal_3.JPG",
