@@ -253,7 +253,7 @@ export const places = [
     lat: 36.204,
     lng: 138.253,
     photo: "",
-    note: "A planned page for cities, trains, food, and quiet temples.",
+    note: "A future chapter for cities, trains, and shrines in the rain.",
     noteZh: "未来章节：二次元胜地，电车，神社和雨后的城市街道。"
   }
 ];
