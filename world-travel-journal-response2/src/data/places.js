@@ -109,6 +109,14 @@ export const places = [
     lat: 45.501,
     lng: -73.567,
     photo: "/montreal_1.JPG",
+    photo:[
+      "/montreal_1.JPG",
+      "/montreal_2.JPG",
+      "/montreal_3.JPG",
+      "/montreal_4.JPG",
+      "/montreal_5.JPG",
+      "/montreal_6.JPG"
+    ],
     note: "Stone streets, French signs, and late-night warmth.",
     noteZh: "石板街、法语招牌与夜晚烟火气。"
   },
