@@ -20,7 +20,7 @@ export const places = [
       "/edinburgh_4.jpeg",
       "/edinburgh_5.jpeg"
     ],
-    note: "Castle stone, narrow closes, and northern weather in memory.",
+    note: "Castle stone, narrow closes, and northern weather.",
     noteZh: "北境之地的城堡、石墙、旧巷。"
   },
   
@@ -67,8 +67,8 @@ export const places = [
       "/banff_4.jpg",
       "/banff_5.jpg"
     ],
-    note: "Blue lakes, cold peaks, and mountain silence.",
-    noteZh: "蓝湖、雪山与山谷静默。"
+    note: "Blue lakes, snowy peaks, and mountain silence.",
+    noteZh: "蓝湖、雪山与山谷。"
   },
   {
     id: 4,
@@ -92,7 +92,7 @@ export const places = [
       "/london_5.jpeg",
       "/london_6.jpeg"
     ],
-    note: "Rain-polished streets, museums, and a river of stories.",
+    note: "Rain-polished streets, museums, and a river in the midst of knwoledge.",
     noteZh: "雨后的街道、博物馆与泰晤士河。"
   },
   {
@@ -134,7 +134,7 @@ export const places = [
     lat: 51.127,
     lng: 1.314,
     photo: "/white_cliff_1.jpeg",
-    note: "White cliffs, wind, and the English Channel below.",
+    note: "White and green in the wind.",
     noteZh: "白色悬崖、海风与英吉利海峡。"
   },
   {
@@ -202,7 +202,7 @@ export const places = [
     lat: 32.061,
     lng: 118.796,
     photo: "",
-    note: "Ancient capital light, plane trees, and quiet city walls.",
+    note: "Ancient capital light, sycamore trees, and quiet city walls.",
     noteZh: "古都、梧桐与城墙。"
   },
   {
