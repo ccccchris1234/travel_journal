@@ -44,11 +44,13 @@ function PhotoPanel({ place }) {
         ? [place.photo]
         : [];
 
+  const safeIndex = images.length > 0 ? Math.min(activeIndex, images.length - 1) : 0;
+
   if (images.length > 0) {
     return (
       <div className="relative h-full w-full">
         <img
-          src={images[activeIndex]}
+          src={images[safeIndex]}
           alt={place.name}
           className="h-full w-full object-cover"
         />
@@ -60,7 +62,7 @@ function PhotoPanel({ place }) {
                 key={image}
                 onClick={() => setActiveIndex(index)}
                 className={`h-14 w-20 flex-shrink-0 overflow-hidden rounded-xl border ${
-                  activeIndex === index
+                  safeIndex === index
                     ? "border-white"
                     : "border-white/30 opacity-70"
                 }`}
@@ -107,15 +109,23 @@ function PlaceDetail({ place, onBack }) {
 
           <div className="grid gap-8 p-6 md:grid-cols-[1fr_0.9fr] md:p-8">
             <div>
-              <p className="mb-3 text-sm uppercase tracking-[0.35em] text-sky-200/70">
-                Travel Memory
-              </p>
+              <div className="mb-4 flex items-start justify-between gap-4">
+                <div>
+                  <p className="mb-3 text-sm uppercase tracking-[0.35em] text-sky-200/70">
+                    Travel Memory
+                  </p>
 
-              <h1 className="text-5xl font-semibold tracking-tight">
-                {place.name}
-              </h1>
+                  <h1 className="text-5xl font-semibold tracking-tight">
+                    {place.name}
+                  </h1>
 
-              <p className="mt-2 text-xl text-slate-400">{place.zh}</p>
+                  <p className="mt-2 text-xl text-slate-400">{place.zh}</p>
+                </div>
+
+                <span className={`rounded-full border px-3 py-1 text-xs ${statusStyles[place.status]}`}>
+                  {place.status}
+                </span>
+              </div>
 
               <div className="mt-6 grid gap-3 text-sm text-slate-300">
                 <div className="flex items-center gap-2">
@@ -370,7 +380,10 @@ export default function App() {
                 {filteredPlaces.map((place) => (
                   <button
                     key={place.id}
-                    onClick={() => setSelectedId(place.id)}
+                    onClick={() => {
+                      setSelectedId(place.id);
+                      setDetailPlaceId(place.id);
+                    }}
                     className={`w-full rounded-2xl border p-3 text-left transition ${
                       selectedId === place.id ? "border-white/30 bg-white/15" : "border-white/10 bg-white/[0.03] hover:bg-white/[0.08]"
                     }`}
