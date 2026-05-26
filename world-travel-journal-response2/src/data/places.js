@@ -134,7 +134,7 @@ export const places = [
     lat: 51.127,
     lng: 1.314,
     photo: "/white_cliff_1.jpeg",
-    note: "White and green in the wind.",
+    note: "White and green in the sea breeze.",
     noteZh: "白色悬崖、海风与英吉利海峡。"
   },
   {
