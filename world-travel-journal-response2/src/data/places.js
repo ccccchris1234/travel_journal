@@ -46,7 +46,7 @@ export const places = [
     date: "Past trip",
     lat: 51.178,
     lng: -115.570,
-    photo: "",
+    photo: "/banff_1.jpeg",
     note: "Blue lakes, cold peaks, and mountain silence.",
     noteZh: "蓝湖、雪山与山谷静默。"
   },
