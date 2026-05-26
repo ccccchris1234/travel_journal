@@ -30,11 +30,13 @@ function project(lat, lng) {
   return { x, y };
 }
 
-function PhotoPanel({ place }) {
+function PhotoPanel({ place, allowFullscreen = false }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [fullscreenImage, setFullscreenImage] = useState(null);
 
   useEffect(() => {
     setActiveIndex(0);
+    setFullscreenImage(null);
   }, [place.id]);
 
   const images =
@@ -48,35 +50,70 @@ function PhotoPanel({ place }) {
 
   if (images.length > 0) {
     return (
-      <div className="relative h-full w-full">
-        <img
-          src={images[safeIndex]}
-          alt={place.name}
-          className="h-full w-full object-cover"
-        />
+      <>
+        <div className="relative h-full w-full">
+          <button
+            type="button"
+            onClick={() => {
+              if (allowFullscreen) {
+                setFullscreenImage(images[safeIndex]);
+              }
+            }}
+            className={`h-full w-full ${allowFullscreen ? "cursor-zoom-in" : "cursor-default"}`}
+          >
+            <img
+              src={images[safeIndex]}
+              alt={place.name}
+              className="h-full w-full object-cover"
+            />
+          </button>
 
-        {images.length > 1 && (
-          <div className="absolute bottom-3 left-3 right-3 flex gap-2 overflow-x-auto">
-            {images.map((image, index) => (
-              <button
-                key={image}
-                onClick={() => setActiveIndex(index)}
-                className={`h-14 w-20 flex-shrink-0 overflow-hidden rounded-xl border ${
-                  safeIndex === index
-                    ? "border-white"
-                    : "border-white/30 opacity-70"
-                }`}
-              >
-                <img
-                  src={image}
-                  alt={`${place.name} ${index + 1}`}
-                  className="h-full w-full object-cover"
-                />
-              </button>
-            ))}
+          {images.length > 1 && (
+            <div className="absolute bottom-3 left-3 right-3 flex gap-2 overflow-x-auto">
+              {images.map((image, index) => (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  className={`h-14 w-20 flex-shrink-0 overflow-hidden rounded-xl border ${
+                    safeIndex === index
+                      ? "border-white"
+                      : "border-white/30 opacity-70"
+                  }`}
+                >
+                  <img
+                    src={image}
+                    alt={`${place.name} ${index + 1}`}
+                    className="h-full w-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {fullscreenImage && (
+          <div
+            onClick={() => setFullscreenImage(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+          >
+            <button
+              type="button"
+              onClick={() => setFullscreenImage(null)}
+              className="absolute right-5 top-5 rounded-full bg-white/10 px-4 py-2 text-2xl text-white transition hover:bg-white/20"
+            >
+              ×
+            </button>
+
+            <img
+              src={fullscreenImage}
+              alt={`${place.name} full view`}
+              onClick={(event) => event.stopPropagation()}
+              className="max-h-[90vh] max-w-[95vw] rounded-2xl object-contain"
+            />
           </div>
         )}
-      </div>
+      </>
     );
   }
 
@@ -96,6 +133,7 @@ function PlaceDetail({ place, onBack }) {
 
       <div className="mx-auto max-w-6xl">
         <button
+          type="button"
           onClick={onBack}
           className="mb-6 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-white/10 hover:text-white"
         >
@@ -104,7 +142,7 @@ function PlaceDetail({ place, onBack }) {
 
         <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] shadow-2xl backdrop-blur">
           <div className="h-[520px]">
-            <PhotoPanel place={place} />
+            <PhotoPanel place={place} allowFullscreen />
           </div>
 
           <div className="grid gap-8 p-6 md:grid-cols-[1fr_0.9fr] md:p-8">
@@ -342,6 +380,7 @@ export default function App() {
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div>
                   <button
+                    type="button"
                     onClick={() => setDetailPlaceId(selected.id)}
                     className="text-left text-3xl font-semibold transition hover:text-sky-200"
                   >
@@ -380,6 +419,7 @@ export default function App() {
                 {filteredPlaces.map((place) => (
                   <button
                     key={place.id}
+                    type="button"
                     onClick={() => {
                       setSelectedId(place.id);
                       setDetailPlaceId(place.id);
