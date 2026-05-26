@@ -1,12 +1,20 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Camera, CalendarDays, Plane, Search, Globe2 } from "lucide-react";
+import {
+  MapPin,
+  Camera,
+  CalendarDays,
+  Plane,
+  Search,
+  Globe2,
+} from "lucide-react";
 import { places } from "./data/places";
+import TravelMap from "./components/TravelMap";
 
 const statusStyles = {
   Visited: "bg-emerald-400/15 text-emerald-200 border-emerald-300/25",
   Wishlist: "bg-sky-400/15 text-sky-200 border-sky-300/25",
-  Planned: "bg-amber-400/15 text-amber-200 border-amber-300/25"
+  Planned: "bg-amber-400/15 text-amber-200 border-amber-300/25",
 };
 
 function Button({ children, className = "", ...props }) {
@@ -22,12 +30,6 @@ function Button({ children, className = "", ...props }) {
 
 function Card({ children, className = "" }) {
   return <div className={`border shadow-2xl ${className}`}>{children}</div>;
-}
-
-function project(lat, lng) {
-  const x = ((lng + 180) / 360) * 100;
-  const y = ((90 - lat) / 180) * 100;
-  return { x, y };
 }
 
 function PhotoPanel({ place, allowFullscreen = false }) {
@@ -46,7 +48,8 @@ function PhotoPanel({ place, allowFullscreen = false }) {
         ? [place.photo]
         : [];
 
-  const safeIndex = images.length > 0 ? Math.min(activeIndex, images.length - 1) : 0;
+  const safeIndex =
+    images.length > 0 ? Math.min(activeIndex, images.length - 1) : 0;
 
   if (images.length > 0) {
     return (
@@ -59,7 +62,9 @@ function PhotoPanel({ place, allowFullscreen = false }) {
                 setFullscreenImage(images[safeIndex]);
               }
             }}
-            className={`h-full w-full ${allowFullscreen ? "cursor-zoom-in" : "cursor-default"}`}
+            className={`h-full w-full ${
+              allowFullscreen ? "cursor-zoom-in" : "cursor-default"
+            }`}
           >
             <img
               src={images[safeIndex]}
@@ -72,7 +77,7 @@ function PhotoPanel({ place, allowFullscreen = false }) {
             <div className="absolute bottom-3 left-3 right-3 flex gap-2 overflow-x-auto">
               {images.map((image, index) => (
                 <button
-                  key={image}
+                  key={`${image}-${index}`}
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   className={`h-14 w-20 flex-shrink-0 overflow-hidden rounded-xl border ${
@@ -125,7 +130,11 @@ function PhotoPanel({ place, allowFullscreen = false }) {
 }
 
 function PlaceDetail({ place, onBack }) {
-  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${place.lng - 0.08}%2C${place.lat - 0.05}%2C${place.lng + 0.08}%2C${place.lat + 0.05}&layer=mapnik&marker=${place.lat}%2C${place.lng}`;
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${
+    place.lng - 0.08
+  }%2C${place.lat - 0.05}%2C${place.lng + 0.08}%2C${
+    place.lat + 0.05
+  }&layer=mapnik&marker=${place.lat}%2C${place.lng}`;
 
   return (
     <div className="min-h-screen bg-slate-950 px-5 py-8 text-slate-100 md:px-8">
@@ -160,7 +169,11 @@ function PlaceDetail({ place, onBack }) {
                   <p className="mt-2 text-xl text-slate-400">{place.zh}</p>
                 </div>
 
-                <span className={`rounded-full border px-3 py-1 text-xs ${statusStyles[place.status]}`}>
+                <span
+                  className={`rounded-full border px-3 py-1 text-xs ${
+                    statusStyles[place.status]
+                  }`}
+                >
                   {place.status}
                 </span>
               </div>
@@ -233,7 +246,9 @@ export default function App() {
   const selected = places.find((place) => place.id === selectedId) || places[0];
   const detailPlace = places.find((place) => place.id === detailPlaceId);
   const visitedCount = places.filter((place) => place.status === "Visited").length;
-  const wishlistCount = places.filter((place) => place.status === "Wishlist").length;
+  const wishlistCount = places.filter(
+    (place) => place.status === "Wishlist"
+  ).length;
   const countryCount = new Set(places.map((place) => place.country)).size;
 
   if (detailPlace) {
@@ -256,7 +271,9 @@ export default function App() {
               <Globe2 className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-400">World Travel Journal</p>
+              <p className="text-sm uppercase tracking-[0.3em] text-slate-400">
+                World Travel Journal
+              </p>
             </div>
           </div>
 
@@ -266,16 +283,23 @@ export default function App() {
         </nav>
 
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-sky-200/70">
               A map of where I have been and where the next frame begins
             </p>
             <h1 className="max-w-4xl text-5xl font-semibold leading-tight tracking-tight md:text-7xl">
               Places I have carried home.
-              <span className="block text-slate-400">Places still calling.</span>
+              <span className="block text-slate-400">
+                Places still calling.
+              </span>
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
-              A cinematic travel journal for visited cities, future routes, and small memories pinned across the world.
+              A cinematic travel journal for visited cities, future routes, and
+              small memories pinned across the world.
             </p>
           </motion.div>
 
@@ -325,50 +349,11 @@ export default function App() {
             </div>
           </div>
 
-          <div className="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-slate-900 shadow-inner">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(59,130,246,0.22),transparent_35%)]" />
-            <svg viewBox="0 0 1000 500" className="h-[420px] w-full opacity-70">
-              <rect width="1000" height="500" fill="rgba(15,23,42,0.9)" />
-              <path d="M145 140 C190 95 265 95 320 125 C350 150 345 190 305 210 C250 235 180 220 140 185 C120 165 120 155 145 140Z" fill="rgba(148,163,184,0.28)" />
-              <path d="M250 235 C310 220 375 240 390 285 C405 335 350 370 290 345 C250 330 220 280 250 235Z" fill="rgba(148,163,184,0.22)" />
-              <path d="M455 130 C510 88 600 92 655 128 C708 165 690 225 620 235 C545 245 470 218 440 178 C425 155 430 145 455 130Z" fill="rgba(148,163,184,0.3)" />
-              <path d="M540 245 C590 240 645 270 655 325 C665 385 610 430 555 395 C512 367 505 285 540 245Z" fill="rgba(148,163,184,0.2)" />
-              <path d="M670 150 C735 105 855 112 910 165 C960 212 915 270 830 258 C755 248 695 225 660 190 C640 170 645 158 670 150Z" fill="rgba(148,163,184,0.3)" />
-              <path d="M800 300 C845 290 900 320 910 370 C922 430 858 448 815 405 C785 375 770 322 800 300Z" fill="rgba(148,163,184,0.22)" />
-              {Array.from({ length: 8 }).map((_, i) => (
-                <line key={`h-${i}`} x1="0" x2="1000" y1={70 + i * 50} y2={70 + i * 50} stroke="rgba(255,255,255,0.05)" />
-              ))}
-              {Array.from({ length: 11 }).map((_, i) => (
-                <line key={`v-${i}`} y1="0" y2="500" x1={80 + i * 85} x2={80 + i * 85} stroke="rgba(255,255,255,0.05)" />
-              ))}
-            </svg>
-
-            {filteredPlaces.map((place) => {
-              const { x, y } = project(place.lat, place.lng);
-              const active = selectedId === place.id;
-              return (
-                <button
-                  key={place.id}
-                  onClick={() => setSelectedId(place.id)}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 outline-none"
-                  style={{ left: `${x}%`, top: `${y}%` }}
-                  title={place.name}
-                >
-                  <span
-                    className={`relative flex h-5 w-5 items-center justify-center rounded-full border shadow-lg transition ${
-                      active
-                        ? "scale-125 border-white bg-white"
-                        : place.status === "Visited"
-                          ? "border-emerald-200 bg-emerald-400"
-                          : "border-sky-200 bg-sky-400"
-                    }`}
-                  >
-                    <span className={`absolute h-8 w-8 rounded-full ${place.status === "Visited" ? "bg-emerald-400/25" : "bg-sky-400/25"}`} />
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          <TravelMap
+            selectedId={selectedId}
+            onSelectPlace={setSelectedId}
+            placesToShow={filteredPlaces}
+          />
         </section>
 
         <aside className="space-y-6">
@@ -388,16 +373,22 @@ export default function App() {
                   </button>
                   <p className="text-slate-400">{selected.zh}</p>
                 </div>
-                <span className={`rounded-full border px-3 py-1 text-xs ${statusStyles[selected.status]}`}>
+                <span
+                  className={`rounded-full border px-3 py-1 text-xs ${
+                    statusStyles[selected.status]
+                  }`}
+                >
                   {selected.status}
                 </span>
               </div>
               <div className="mb-5 grid gap-3 text-sm text-slate-300">
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-slate-500" /> {selected.country} · {selected.type}
+                  <MapPin className="h-4 w-4 text-slate-500" />{" "}
+                  {selected.country} · {selected.type}
                 </div>
                 <div className="flex items-center gap-2">
-                  <CalendarDays className="h-4 w-4 text-slate-500" /> {selected.date}
+                  <CalendarDays className="h-4 w-4 text-slate-500" />{" "}
+                  {selected.date}
                 </div>
               </div>
               <p className="leading-7 text-slate-300">{selected.note}</p>
@@ -422,19 +413,26 @@ export default function App() {
                     type="button"
                     onClick={() => setSelectedId(place.id)}
                     className={`w-full rounded-2xl border p-3 text-left transition ${
-                      selectedId === place.id ? "border-white/30 bg-white/15" : "border-white/10 bg-white/[0.03] hover:bg-white/[0.08]"
+                      selectedId === place.id
+                        ? "border-white/30 bg-white/15"
+                        : "border-white/10 bg-white/[0.03] hover:bg-white/[0.08]"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <p className="font-medium">
-                          {place.name} <span className="text-slate-500">{place.zh}</span>
+                          {place.name}{" "}
+                          <span className="text-slate-500">{place.zh}</span>
                         </p>
                         <p className="text-xs text-slate-500">
                           {place.country} · {place.type}
                         </p>
                       </div>
-                      <span className={`rounded-full border px-2 py-1 text-[10px] ${statusStyles[place.status]}`}>
+                      <span
+                        className={`rounded-full border px-2 py-1 text-[10px] ${
+                          statusStyles[place.status]
+                        }`}
+                      >
                         {place.status}
                       </span>
                     </div>
