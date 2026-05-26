@@ -29,7 +29,7 @@ export const places = [
     date: "Past trip",
     lat: 43.653,
     lng: -79.383,
-    photo: "",
+    photo: "/toronto_1.jpeg",
     note: "Lakeside skyline, streetcars, and a city built in layers.",
     noteZh: "湖岸天际线、电车与多元城市肌理。"
   },
@@ -97,7 +97,7 @@ export const places = [
     date: "Past trip",
     lat: 51.127,
     lng: 1.314,
-    photo: "",
+    photo: "white_cliff_1.jpeg",
     note: "White cliffs, wind, and the English Channel below.",
     noteZh: "白色悬崖、海风与英吉利海峡。"
   },
@@ -148,7 +148,7 @@ export const places = [
     date: "Past trip",
     lat: 31.230,
     lng: 121.474,
-    photo: "",
+    photo: "/shanghai_1.jpeg",
     note: "Glass towers, old lanes, and the Bund after dark.",
     noteZh: "高楼、弄堂与夜色中的外滩。"
   },
