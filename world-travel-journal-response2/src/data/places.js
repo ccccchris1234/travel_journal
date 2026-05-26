@@ -23,6 +23,7 @@ export const places = [
     note: "Castle stone, narrow closes, and northern weather in memory.",
     noteZh: "北境之地的城堡、石墙、旧巷。"
   },
+  
    {
     id: 2,
     name: "Toronto",
@@ -37,6 +38,11 @@ export const places = [
     lat: 43.653,
     lng: -79.383,
     photo: "/toronto_1.jpeg",
+    photos:[
+      "/toronto_1.jpeg",
+      "/toronto_2.jpeg",
+      "/toronto_3.jpeg"
+    ],
     note: "Lakeside skyline, streetcars, and a city built in layers.",
     noteZh: "湖岸天际线、电车与多元城市肌理。"
   },
@@ -54,6 +60,13 @@ export const places = [
     lat: 51.178,
     lng: -115.570,
     photo: "/banff_1.jpeg",
+    photos:[
+      "/banff_1.jpeg",
+      "/banff_2.jpg",
+      "/banff_3.jpg",
+      "/banff_4.jpg",
+      "/banff_5.jpg"
+    ],
     note: "Blue lakes, cold peaks, and mountain silence.",
     noteZh: "蓝湖、雪山与山谷静默。"
   },
@@ -71,6 +84,14 @@ export const places = [
     lat: 51.507,
     lng: -0.128,
     photo: "/london_1.jpeg",
+    photos:[
+      "/london_1.jpeg",
+      "/london_2.jpeg",
+      "/london_3.jpeg",
+      "/london_4.jpeg",
+      "/london_5.jpeg",
+      "/london_6.jpeg"
+    ],
     note: "Rain-polished streets, museums, and a river of stories.",
     noteZh: "雨后的街道、博物馆与泰晤士河。"
   },
