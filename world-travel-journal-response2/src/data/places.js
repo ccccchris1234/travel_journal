@@ -251,12 +251,18 @@ export const places = [
     countryZh: "日本",
     type: "Country",
     typeZh: "国家",
-    status: "Wishlist",
+    status: "planned",
     statusZh: "想去",
     date: "Future",
     lat: 36.204,
     lng: 138.253,
-    photo: "",
+    photo: "/japan_1.jpeg",
+    photos:[
+      "/japan_1.jpeg",
+      "/japan_2.jpeg",
+      "/japan_3.jpeg",
+      "/japan_4.jpeg"
+    ],
     note: "A future chapter for Trams, shrines, and city streets after the rain.",
     noteZh: "未来章节：电车，神社和雨后的城市街道。"
   }
