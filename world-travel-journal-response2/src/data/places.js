@@ -268,9 +268,9 @@ export const places = [
   },
   {
     id: 14,
-    name: "New zeland",
+    name: "New Zeland",
     zh: "新西兰",
-    country: "New zeland",
+    country: "New Zeland",
     countryZh: "新西兰",
     type: "Country",
     typeZh: "国家",
