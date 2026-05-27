@@ -23,6 +23,8 @@ const countryIdMap = {
   Thailand: "764",
   Malaysia: "458",
   "South Korea": "410",
+  Iceland: "352",
+  "New Zealand": "554",
 };
 
 function normalizeCountryName(country = "") {
@@ -51,6 +53,8 @@ function normalizeCountryName(country = "") {
   if (clean.includes("Thailand")) return "Thailand";
   if (clean.includes("Malaysia")) return "Malaysia";
   if (clean.includes("South Korea")) return "South Korea";
+  if (clean.includes("Iceland")) return "Iceland";
+  if (clean.includes("New Zealand")) return "New Zealand";
 
   return clean;
 }
