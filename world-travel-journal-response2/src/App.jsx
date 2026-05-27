@@ -7,14 +7,31 @@ import {
   Plane,
   Search,
   Globe2,
+  X,
 } from "lucide-react";
 import { places } from "./data/places";
 import TravelMap from "./components/TravelMap";
+
+const ADDED_PLACES_KEY = "travel-journal-added-places";
 
 const statusStyles = {
   Visited: "bg-emerald-400/15 text-emerald-200 border-emerald-300/25",
   Wishlist: "bg-sky-400/15 text-sky-200 border-sky-300/25",
   Planned: "bg-amber-400/15 text-amber-200 border-amber-300/25",
+};
+
+const emptyPlaceForm = {
+  name: "",
+  zh: "",
+  country: "",
+  type: "",
+  status: "Visited",
+  date: "Past trip",
+  lat: "",
+  lng: "",
+  photosText: "",
+  note: "",
+  noteZh: "",
 };
 
 function Button({ children, className = "", ...props }) {
@@ -30,6 +47,229 @@ function Button({ children, className = "", ...props }) {
 
 function Card({ children, className = "" }) {
   return <div className={`border shadow-2xl ${className}`}>{children}</div>;
+}
+
+function FormField({ label, children }) {
+  return (
+    <label className="grid gap-2 text-sm text-slate-300">
+      <span>{label}</span>
+      {children}
+    </label>
+  );
+}
+
+function AddPlaceModal({ open, onClose, onSave }) {
+  const [form, setForm] = useState(emptyPlaceForm);
+
+  useEffect(() => {
+    if (open) {
+      setForm(emptyPlaceForm);
+    }
+  }, [open]);
+
+  if (!open) return null;
+
+  function update(field, value) {
+    setForm((current) => ({
+      ...current,
+      [field]: value,
+    }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const lat = Number(form.lat);
+    const lng = Number(form.lng);
+
+    if (!form.name.trim()) {
+      alert("Please enter a place name.");
+      return;
+    }
+
+    if (!form.country.trim()) {
+      alert("Please enter a country.");
+      return;
+    }
+
+    if (Number.isNaN(lat) || Number.isNaN(lng)) {
+      alert("Please enter valid latitude and longitude.");
+      return;
+    }
+
+    const photos = form.photosText
+      .split(/[\n,]+/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    onSave({
+      name: form.name.trim(),
+      zh: form.zh.trim(),
+      country: form.country.trim(),
+      type: form.type.trim() || "City",
+      status: form.status,
+      date: form.date.trim() || "Past trip",
+      lat,
+      lng,
+      photos,
+      note: form.note.trim() || "A new place added to the journal.",
+      noteZh: form.noteZh.trim(),
+    });
+
+    onClose();
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-6 backdrop-blur">
+      <div className="max-h-[92vh] w-full max-w-3xl overflow-auto rounded-[2rem] border border-white/10 bg-slate-950 p-6 text-slate-100 shadow-2xl">
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-sky-200/70">
+              New Travel Memory
+            </p>
+            <h2 className="mt-2 text-3xl font-semibold">Add Place</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              This saves to your current browser first. It will not edit GitHub automatically.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full border border-white/10 bg-white/5 p-2 text-slate-300 transition hover:bg-white/10 hover:text-white"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="grid gap-5">
+          <div className="grid gap-4 md:grid-cols-2">
+            <FormField label="Place name">
+              <input
+                value={form.name}
+                onChange={(event) => update("name", event.target.value)}
+                placeholder="Tokyo"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+              />
+            </FormField>
+
+            <FormField label="Chinese name">
+              <input
+                value={form.zh}
+                onChange={(event) => update("zh", event.target.value)}
+                placeholder="东京"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+              />
+            </FormField>
+
+            <FormField label="Country">
+              <input
+                value={form.country}
+                onChange={(event) => update("country", event.target.value)}
+                placeholder="Japan"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+              />
+            </FormField>
+
+            <FormField label="Type">
+              <input
+                value={form.type}
+                onChange={(event) => update("type", event.target.value)}
+                placeholder="City / Nature / Landmark"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+              />
+            </FormField>
+
+            <FormField label="Status">
+              <select
+                value={form.status}
+                onChange={(event) => update("status", event.target.value)}
+                className="rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-sky-300/50"
+              >
+                <option value="Visited">Visited</option>
+                <option value="Wishlist">Wishlist</option>
+                <option value="Planned">Planned</option>
+              </select>
+            </FormField>
+
+            <FormField label="Date">
+              <input
+                value={form.date}
+                onChange={(event) => update("date", event.target.value)}
+                placeholder="Past trip / 2026 / Future trip"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+              />
+            </FormField>
+
+            <FormField label="Latitude">
+              <input
+                value={form.lat}
+                onChange={(event) => update("lat", event.target.value)}
+                placeholder="35.6762"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+              />
+            </FormField>
+
+            <FormField label="Longitude">
+              <input
+                value={form.lng}
+                onChange={(event) => update("lng", event.target.value)}
+                placeholder="139.6503"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+              />
+            </FormField>
+          </div>
+
+          <FormField label="Photo paths">
+            <textarea
+              value={form.photosText}
+              onChange={(event) => update("photosText", event.target.value)}
+              placeholder={"/photos/tokyo-1.jpg\n/photos/tokyo-2.jpg"}
+              rows={3}
+              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+            />
+          </FormField>
+
+          <FormField label="English note">
+            <textarea
+              value={form.note}
+              onChange={(event) => update("note", event.target.value)}
+              placeholder="Neon streets, quiet shrines, and late-night ramen."
+              rows={3}
+              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+            />
+          </FormField>
+
+          <FormField label="Chinese note">
+            <textarea
+              value={form.noteZh}
+              onChange={(event) => update("noteZh", event.target.value)}
+              placeholder="霓虹街道、安静神社和深夜拉面。"
+              rows={3}
+              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none placeholder:text-slate-600 focus:border-sky-300/50"
+            />
+          </FormField>
+
+          <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
+            <Button
+              type="button"
+              onClick={onClose}
+              className="border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white"
+            >
+              Cancel
+            </Button>
+
+            <Button
+              type="submit"
+              className="bg-white text-slate-950 hover:bg-slate-200"
+            >
+              Save Place
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 function PhotoPanel({ place, allowFullscreen = false }) {
@@ -226,9 +466,29 @@ export default function App() {
   const [status, setStatus] = useState("All");
   const [query, setQuery] = useState("");
   const [detailPlaceId, setDetailPlaceId] = useState(null);
+  const [isAddPlaceOpen, setIsAddPlaceOpen] = useState(false);
+
+  const [addedPlaces, setAddedPlaces] = useState(() => {
+    if (typeof window === "undefined") return [];
+
+    try {
+      const saved = window.localStorage.getItem(ADDED_PLACES_KEY);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem(ADDED_PLACES_KEY, JSON.stringify(addedPlaces));
+  }, [addedPlaces]);
+
+  const allPlaces = useMemo(() => {
+    return [...places, ...addedPlaces];
+  }, [addedPlaces]);
 
   const filteredPlaces = useMemo(() => {
-    return places.filter((place) => {
+    return allPlaces.filter((place) => {
       const matchesStatus = status === "All" || place.status === status;
       const q = query.trim().toLowerCase();
       const matchesQuery =
@@ -241,15 +501,37 @@ export default function App() {
 
       return matchesStatus && matchesQuery;
     });
-  }, [status, query]);
+  }, [allPlaces, status, query]);
 
-  const selected = places.find((place) => place.id === selectedId) || places[0];
-  const detailPlace = places.find((place) => place.id === detailPlaceId);
-  const visitedCount = places.filter((place) => place.status === "Visited").length;
-  const wishlistCount = places.filter(
+  const selected =
+    allPlaces.find((place) => place.id === selectedId) || allPlaces[0];
+
+  const detailPlace = allPlaces.find((place) => place.id === detailPlaceId);
+
+  const visitedCount = allPlaces.filter(
+    (place) => place.status === "Visited"
+  ).length;
+
+  const wishlistCount = allPlaces.filter(
     (place) => place.status === "Wishlist"
   ).length;
-  const countryCount = new Set(places.map((place) => place.country)).size;
+
+  const countryCount = new Set(allPlaces.map((place) => place.country)).size;
+
+  function handleAddPlace(newPlaceData) {
+    const nextId =
+      Math.max(0, ...allPlaces.map((place) => Number(place.id) || 0)) + 1;
+
+    const newPlace = {
+      id: nextId,
+      ...newPlaceData,
+    };
+
+    setAddedPlaces((current) => [...current, newPlace]);
+    setSelectedId(newPlace.id);
+    setStatus("All");
+    setQuery("");
+  }
 
   if (detailPlace) {
     return (
@@ -277,7 +559,11 @@ export default function App() {
             </div>
           </div>
 
-          <Button className="bg-white text-slate-950 hover:bg-slate-200">
+          <Button
+            type="button"
+            onClick={() => setIsAddPlaceOpen(true)}
+            className="bg-white text-slate-950 hover:bg-slate-200"
+          >
             <Plane className="mr-2 h-4 w-4" /> Add Place
           </Button>
         </nav>
@@ -310,12 +596,14 @@ export default function App() {
                 <p className="mt-1 text-sm text-slate-400">Visited</p>
               </div>
             </Card>
+
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{wishlistCount}</p>
                 <p className="mt-1 text-sm text-slate-400">Wishlist</p>
               </div>
             </Card>
+
             <Card className="rounded-3xl border-white/10 bg-white/5 text-white backdrop-blur">
               <div className="p-5">
                 <p className="text-3xl font-semibold">{countryCount}</p>
@@ -332,10 +620,12 @@ export default function App() {
             <div>
               <h2 className="text-2xl font-semibold">World Map</h2>
             </div>
+
             <div className="flex flex-wrap gap-2">
               {["All", "Visited", "Wishlist", "Planned"].map((item) => (
                 <Button
                   key={item}
+                  type="button"
                   onClick={() => setStatus(item)}
                   className={
                     status === item
@@ -353,6 +643,7 @@ export default function App() {
             selectedId={selectedId}
             onSelectPlace={setSelectedId}
             placesToShow={filteredPlaces}
+            allPlaces={allPlaces}
           />
         </section>
 
@@ -361,6 +652,7 @@ export default function App() {
             <div className="h-56">
               <PhotoPanel place={selected} />
             </div>
+
             <div className="p-6">
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div>
@@ -373,6 +665,7 @@ export default function App() {
                   </button>
                   <p className="text-slate-400">{selected.zh}</p>
                 </div>
+
                 <span
                   className={`rounded-full border px-3 py-1 text-xs ${
                     statusStyles[selected.status]
@@ -381,16 +674,19 @@ export default function App() {
                   {selected.status}
                 </span>
               </div>
+
               <div className="mb-5 grid gap-3 text-sm text-slate-300">
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-slate-500" />{" "}
                   {selected.country} · {selected.type}
                 </div>
+
                 <div className="flex items-center gap-2">
                   <CalendarDays className="h-4 w-4 text-slate-500" />{" "}
                   {selected.date}
                 </div>
               </div>
+
               <p className="leading-7 text-slate-300">{selected.note}</p>
             </div>
           </Card>
@@ -406,6 +702,7 @@ export default function App() {
                   className="w-full bg-transparent text-sm outline-none placeholder:text-slate-600"
                 />
               </div>
+
               <div className="max-h-80 space-y-2 overflow-auto pr-1">
                 {filteredPlaces.map((place) => (
                   <button
@@ -428,6 +725,7 @@ export default function App() {
                           {place.country} · {place.type}
                         </p>
                       </div>
+
                       <span
                         className={`rounded-full border px-2 py-1 text-[10px] ${
                           statusStyles[place.status]
@@ -443,6 +741,12 @@ export default function App() {
           </Card>
         </aside>
       </main>
+
+      <AddPlaceModal
+        open={isAddPlaceOpen}
+        onClose={() => setIsAddPlaceOpen(false)}
+        onSave={handleAddPlace}
+      />
     </div>
   );
 }
