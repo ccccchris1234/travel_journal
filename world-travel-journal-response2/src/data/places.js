@@ -223,7 +223,7 @@ export const places = [
     lat: 24.479,
     lng: 118.089,
     photo: "",
-    note: "Sea breeze, island streets, and slow afternoons.",
+    note: "Sea breeze, island streets, and slow afternoon time.",
     noteZh: "海风、岛屿街道与慢下午。"
   },
   {
@@ -257,7 +257,7 @@ export const places = [
     lat: 36.204,
     lng: 138.253,
     photo: "",
-    note: "A future chapter for cities, trains, and shrines in the rain.",
-    noteZh: "未来章节：二次元胜地，电车，神社和雨后的城市街道。"
+    note: "A future chapter for Trams, shrines, and city streets after the rain.",
+    noteZh: "未来章节：电车，神社和雨后的城市街道。"
   }
 ];
