@@ -185,6 +185,10 @@ export const places = [
     lat: 31.230,
     lng: 121.474,
     photo: "/shanghai_1.jpeg",
+    photos:[
+      "/shanghai_1.jpeg",
+      "/shanghai_2.jpeg"
+    ],
     note: "Glass towers, old lanes, and the Bund after dark.",
     noteZh: "高楼、弄堂与夜色中的外滩。"
   },
