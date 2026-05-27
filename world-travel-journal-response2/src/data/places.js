@@ -67,7 +67,7 @@ export const places = [
       "/banff_4.jpg",
       "/banff_5.jpg"
     ],
-    note: "Blue lakes, snowy peaks, and mountain silence.",
+    note: "Blue lakes, snowy peaks, and the silent mountains.",
     noteZh: "蓝湖、雪山与山谷。"
   },
   {
@@ -228,23 +228,6 @@ export const places = [
   },
   {
     id: 12,
-    name: "Iceland",
-    zh: "冰岛",
-    country: "Iceland",
-    countryZh: "冰岛",
-    type: "Country",
-    typeZh: "国家",
-    status: "Wishlist",
-    statusZh: "想去",
-    date: "Future",
-    lat: 64.963,
-    lng: -19.021,
-    photo: "",
-    note: "A future chapter of black beaches, glaciers, and northern light.",
-    noteZh: "未来章节：黑沙滩、冰川、极光与无人的街道。"
-  },
-  {
-    id: 13,
     name: "Japan",
     zh: "日本",
     country: "Japan",
@@ -263,7 +246,47 @@ export const places = [
       "/japan_3.jpeg",
       "/japan_4.jpeg"
     ],
-    note: "A future chapter for Trams, shrines, and city streets after the rain.",
+    note: "A future chapter of Trams, shrines, and city streets after the rain.",
     noteZh: "未来章节：电车，神社和雨后的城市街道。"
-  }
+  },
+  {
+    id: 13,
+    name: "Iceland",
+    zh: "冰岛",
+    country: "Iceland",
+    countryZh: "冰岛",
+    type: "Country",
+    typeZh: "国家",
+    status: "Wishlist",
+    statusZh: "想去",
+    date: "Future",
+    lat: 64.963,
+    lng: -19.021,
+    photo: "",
+    note: "A future chapter of black beaches, glaciers, and northern light.",
+    noteZh: "未来章节：黑沙滩、冰川、极光与无人的街道。"
+  },
+  {
+    id: 13,
+    name: "New zeland",
+    zh: "新西兰",
+    country: "New zeland",
+    countryZh: "新西兰",
+    type: "Country",
+    typeZh: "国家",
+    status: "Wishlist",
+    statusZh: "想去",
+    date: "Future",
+    lat: -36.8485,
+    lng: 174.7633,
+    photo: "/new_zeland_1",
+    photos:[
+      "/new_zeland_1",
+      "/new_zeland_2",
+      "/new_zeland_3",
+      "/new_zeland_4"
+    ],
+    note: "A future chapter of volcanic hills, harbor light, and island views..",
+    noteZh: "未来章节：火山丘、港湾光影与岛屿视野。"
+  },
 ];
