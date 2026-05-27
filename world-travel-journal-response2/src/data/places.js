@@ -286,7 +286,7 @@ export const places = [
       "/new_zeland_3.jpg",
       "/new_zeland_4.jpg"
     ],
-    note: "A future chapter of volcanic hills, harbor light, and island views..",
+    note: "A future chapter of volcanic hills, harbor light, and island views.",
     noteZh: "未来章节：火山丘、港湾光影与岛屿视野。"
   },
 ];
