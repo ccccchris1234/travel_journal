@@ -41,6 +41,16 @@ function normalizeCountryName(country = "") {
   if (clean.includes("Canada")) return "Canada";
   if (clean.includes("Japan")) return "Japan";
   if (clean.includes("Singapore")) return "Singapore";
+  if (clean.includes("Australia")) return "Australia";
+  if (clean.includes("France")) return "France";
+  if (clean.includes("Italy")) return "Italy";
+  if (clean.includes("Germany")) return "Germany";
+  if (clean.includes("Spain")) return "Spain";
+  if (clean.includes("Switzerland")) return "Switzerland";
+  if (clean.includes("Netherlands")) return "Netherlands";
+  if (clean.includes("Thailand")) return "Thailand";
+  if (clean.includes("Malaysia")) return "Malaysia";
+  if (clean.includes("South Korea")) return "South Korea";
 
   return clean;
 }
@@ -90,15 +100,16 @@ export default function TravelMap({
   selectedId,
   onSelectPlace,
   placesToShow = places,
+  allPlaces = places,
 }) {
   const visitedCountryIds = useMemo(() => {
     return new Set(
-      places
+      allPlaces
         .filter((place) => place.status === "Visited")
         .map((place) => getCountryId(place.country))
         .filter(Boolean)
     );
-  }, []);
+  }, [allPlaces]);
 
   return (
     <div className="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-slate-950 shadow-inner">
