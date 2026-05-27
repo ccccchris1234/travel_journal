@@ -241,10 +241,10 @@ export const places = [
     lng: 138.253,
     photo: "/japan_1.jpeg",
     photos:[
-      "/japan_1.jpeg",
-      "/japan_2.jpeg",
-      "/japan_3.jpeg",
-      "/japan_4.jpeg"
+      "/japan_1.jpg",
+      "/japan_2.jpg",
+      "/japan_3.jpg",
+      "/japan_4.jpg"
     ],
     note: "A future chapter of Trams, shrines, and city streets after the rain.",
     noteZh: "未来章节：电车，神社和雨后的城市街道。"
@@ -281,10 +281,10 @@ export const places = [
     lng: 174.7633,
     photo: "/new_zeland_1",
     photos:[
-      "/new_zeland_1",
-      "/new_zeland_2",
-      "/new_zeland_3",
-      "/new_zeland_4"
+      "/new_zeland_1.jpg",
+      "/new_zeland_2.jpg",
+      "/new_zeland_3.jpg",
+      "/new_zeland_4.jpg"
     ],
     note: "A future chapter of volcanic hills, harbor light, and island views..",
     noteZh: "未来章节：火山丘、港湾光影与岛屿视野。"
