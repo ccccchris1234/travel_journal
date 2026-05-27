@@ -267,7 +267,7 @@ export const places = [
     noteZh: "未来章节：黑沙滩、冰川、极光与无人的街道。"
   },
   {
-    id: 13,
+    id: 14,
     name: "New zeland",
     zh: "新西兰",
     country: "New zeland",
