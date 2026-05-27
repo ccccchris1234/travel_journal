@@ -518,6 +518,10 @@ export default function App() {
 
   const countryCount = new Set(allPlaces.map((place) => place.country)).size;
 
+  const selectedIsAdded = addedPlaces.some(
+    (place) => place.id === selected?.id
+  );
+
   function handleAddPlace(newPlaceData) {
     const nextId =
       Math.max(0, ...allPlaces.map((place) => Number(place.id) || 0)) + 1;
@@ -531,6 +535,43 @@ export default function App() {
     setSelectedId(newPlace.id);
     setStatus("All");
     setQuery("");
+  }
+
+  function handleDeletePlace(placeId) {
+    const isOriginalPlace = places.some((place) => place.id === placeId);
+
+    if (isOriginalPlace) {
+      alert(
+        "This place is from src/data/places.js. Delete it by editing places.js directly."
+      );
+      return;
+    }
+
+    const placeToDelete = addedPlaces.find((place) => place.id === placeId);
+
+    if (!placeToDelete) {
+      return;
+    }
+
+    const confirmed = window.confirm(`Delete ${placeToDelete.name}?`);
+
+    if (!confirmed) {
+      return;
+    }
+
+    const remainingPlaces = allPlaces.filter((place) => place.id !== placeId);
+
+    setAddedPlaces((current) =>
+      current.filter((place) => place.id !== placeId)
+    );
+
+    if (selectedId === placeId) {
+      setSelectedId(remainingPlaces[0]?.id || places[0]?.id || 1);
+    }
+
+    if (detailPlaceId === placeId) {
+      setDetailPlaceId(null);
+    }
   }
 
   if (detailPlace) {
@@ -666,13 +707,25 @@ export default function App() {
                   <p className="text-slate-400">{selected.zh}</p>
                 </div>
 
-                <span
-                  className={`rounded-full border px-3 py-1 text-xs ${
-                    statusStyles[selected.status]
-                  }`}
-                >
-                  {selected.status}
-                </span>
+                <div className="flex flex-col items-end gap-2">
+                  <span
+                    className={`rounded-full border px-3 py-1 text-xs ${
+                      statusStyles[selected.status]
+                    }`}
+                  >
+                    {selected.status}
+                  </span>
+
+                  {selectedIsAdded && (
+                    <button
+                      type="button"
+                      onClick={() => handleDeletePlace(selected.id)}
+                      className="rounded-full border border-red-300/20 bg-red-400/10 px-3 py-1 text-xs text-red-200 transition hover:bg-red-400/20"
+                    >
+                      Delete
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div className="mb-5 grid gap-3 text-sm text-slate-300">
